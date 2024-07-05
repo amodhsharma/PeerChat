@@ -1,0 +1,15 @@
+#videos{
+    display: grid;
+    /*enables CSS Grid Layout on this element, which allows you to align child elements into a grid.*/
+    grid-template-columns: 1fr 1fr;
+    /*This defines the columns of the grid. It specifies that there should be two columns (1fr 1fr) of equal width. 
+    The fr unit stands for “fraction of the available space”. So, 1fr 1fr means each column should take up an equal fraction of the space available in the grid container. */
+    gap: 2em;
+    /*The em unit is relative to the font size of the element. So, a gap of 2em means there will be a space equivalent to two times the current font size between each grid item, both vertically and horizontally.*/
+}
+
+.video-player{
+    background-color: black;
+    width: 100%;
+    height: 500px;
+}

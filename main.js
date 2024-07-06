@@ -1,3 +1,5 @@
+let APP_ID = " ";
+
 let localStream;
 let remoteStream;
 let peerConection;
@@ -26,10 +28,25 @@ let createOffer = async () =>{
     remoteStream = new MediaStream()
     document.getElementById('user-2').srcObject = remoteStream
 
+    //iterates over tracks and allows remote peer to handle these tracks 
     localStream.getTracks().forEach((track) => {
         peerConnection.addTrack(track, localStream)
     })
 
+    //event listener that listend for the trakcs being posted by peer
+    peerConnection.ontrack = (event) => {
+        event.streams[0].getTracks().forEach((track) => {
+            remoteStream.addTrack(track)
+            //any track added here will be added to the remote StreamObject
+        })
+    }
+    //creating an ice candidate 
+    //initiated by setLocalDescription 
+    peerConnection.onicecandidate = async (event) => {
+        if(event.candidate){
+            client.sendMessageToPeer({text:JSON.stringify({'type':'candidate', 'candidate':event.candidate})}, MemberId)
+        }
+    }
 
     let offer = await peerConnecction.createOffer()
     await peerConnection.setLocalDescription(offer)

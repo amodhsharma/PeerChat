@@ -1,4 +1,8 @@
-let APP_ID = " ";
+
+require('dotenv').config();
+//for api services, going to ask the application to load any file with a dotevn into this variable 
+
+let APP_ID = process.env.API_ID;
 
 let localStream;
 let remoteStream;
